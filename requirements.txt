@@ -1,0 +1,8 @@
+Werkzeug==0.14.1
+lxml==4.2.5
+psycopg2==2.7.4
+Pillow==5.1.0
+requests==2.18.4
+passlib==1.7.1
+pyldap==2.4.37
+pyserial==3.4

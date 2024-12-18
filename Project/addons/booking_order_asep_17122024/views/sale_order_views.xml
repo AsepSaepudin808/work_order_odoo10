@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="is_booking_order" invisible="1"/>
+                <field name="booking_start" required="1"/>
+                <field name="booking_end" required="1"/>
+                <!-- <field name="team_id" required="1"/> -->
+                <field name="team_leader" required="1"/>
+                <field name="team_members" widget="many2many_tags" required="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_booking_order" model="ir.actions.act_window">
+        <field name="name">Booking Orders</field>
+        <field name="res_model">sale.order</field>
+        <field name="domain">[('is_booking_order', '=', True)]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
+

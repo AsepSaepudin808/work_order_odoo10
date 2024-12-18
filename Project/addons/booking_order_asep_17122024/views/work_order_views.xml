@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_work_order_tree" model="ir.ui.view">
+        <field name="name">work.order.tree</field>
+        <field name="model">work.order</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="team_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_work_order_form" model="ir.ui.view">
+        <field name="name">work.order.form</field>
+        <field name="model">work.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="booking_order_ref" readonly="1"/>
+                        <field name="team_id" required="1"/>
+                        <field name="team_leader" required="1"/>
+                        <field name="team_members"/>
+                        <field name="planned_start" required="1"/>
+                        <field name="planned_end" required="1"/>
+                        <field name="date_start" readonly="1"/>
+                        <field name="date_end" readonly="1"/>
+                        <field name="state" readonly="1"/>
+                        <field name="notes"/>
+                    </group>
+                    <footer>
+                        <button name="action_start_work" type="object" string="Start Work" states="pending"/>
+                        <button name="action_end_work" type="object" string="End Work" states="in_progress"/>
+                        <button name="action_reset" type="object" string="Reset" states="in_progress"/>
+                        <button name="action_cancel" type="object" string="Cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_work_order" model="ir.actions.act_window">
+        <field name="name">Work Orders</field>
+        <field name="res_model">work.order</field>
+        <field name="view_mode">tree,form,kanban,calendar,pivot,graph</field>
+    </record>
+</odoo>

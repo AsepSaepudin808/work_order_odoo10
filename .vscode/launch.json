@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "odooRUN",
+            "type": "debugpy",
+            "stopOnEntry": false,
+            "request": "launch",
+            "console": "integratedTerminal",
+            "program": "/home/progodo/Odoo-Dev/odoo10/odoo10/odoo-bin",
+            "python": "/home/progodo/Odoo-Dev/odoo10/odoo10-env/bin/python3",
+            "args": [
+                "--config=/home/progodo/Odoo-Dev/odoo10/Conf/project_odoo10.conf",
+                "--dev=xml",
+                // "--database=odooX",
+                // "--update=aptavis_accounting,aptavis_inventory,aptavis_sales,aptavis_purchase,crm_kit",
+            ]
+        }
+    ]
+}
