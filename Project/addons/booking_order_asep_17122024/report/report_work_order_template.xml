@@ -1,0 +1,20 @@
+<odoo>
+    <template id="work_order_template">
+        <t t-call="web.html_container">
+            <t t-foreach="doc_ids" t-as="doc_id">
+                <t t-set="doc" t-value="doc_model.browse(doc_id)"/>
+                <div class="page">
+                    <h2>Work Order: <span t-field="doc.name"/></h2>
+                    <p><strong>Team Name:</strong> <span t-field="doc.team.team_name"/></p>
+                    <p><strong>Customer:</strong> <span t-field="doc.booking_order_reference.partner_id.name"/></p>
+                    <p><strong>Booking Order Ref:</strong> <span t-field="doc.booking_order_reference.name"/></p>
+                    <p><strong>Date:</strong> <span t-field="doc.planned_start"/> - <span t-field="doc.planned_end"/></p>
+                    <p><strong>Notes:</strong></p>
+                    <p t-field="doc.notes"/>
+                    <br/>
+                    <p><strong>Signature:</strong> ____________________________</p>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="action_report_work_order"
+        model="work.order"
+        string="Work Order"
+        report_type="qweb-pdf"
+        name="booking_order_asep_17122024.report_work_order"
+        file="booking_order_asep_17122024.report_work_order"/>
+</odoo>

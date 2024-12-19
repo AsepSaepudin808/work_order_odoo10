@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_service_team_tree" model="ir.ui.view">
-        <field name="name">service.team.tree</field>
-        <field name="model">service.team</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="name"/>
-                <field name="team_leader"/>
-                <field name="team_members"/>
-            </tree>
-        </field>
-    </record>
-
     <record id="view_service_team_form" model="ir.ui.view">
         <field name="name">service.team.form</field>
         <field name="model">service.team</field>
         <field name="arch" type="xml">
-            <form>
+            <form string="Service Team">
                 <sheet>
                     <group>
-                        <field name="name"/>
+                        <field name="team_name"/>
                         <field name="team_leader"/>
                         <field name="team_members" widget="many2many_tags"/>
                     </group>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record id="view_service_team_tree" model="ir.ui.view">
+        <field name="name">service.team.tree</field>
+        <field name="model">service.team</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="team_name"/>
+                <field name="team_leader"/>
+            </tree>
         </field>
     </record>
 
@@ -34,3 +33,5 @@
         <field name="view_mode">tree,form</field>
     </record>
 </odoo>
+
+
