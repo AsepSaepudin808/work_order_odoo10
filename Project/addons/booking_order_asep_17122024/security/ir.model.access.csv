@@ -1,3 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_service_team_user,booking_order_asep_17122024.service.team,model_service_team,base.group_user,1,1,1,1
 access_work_order_user,booking_order_asep_17122024.work.order,model_work_order,base.group_user,1,1,1,1
+access_work_order_sequence_user,booking_order_asep_17122024.work.order.sequence,model_work_order_sequence,base.group_user,1,1,1,1
+access_work_order_cancel_reason_user,booking_order_asep_17122024.work.order.cancel.reason,model_work_order_cancel_reason,base.group_user,1,1,1,1
+

@@ -1,29 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_sale_order_form_inherit" model="ir.ui.view">
-        <field name="name">sale.order.form.inherit</field>
-        <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_order_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//header" position="inside">
-                <button name="action_check_team_availability" string="Check" type="object" class="btn-primary"/>
-            </xpath>
-            <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="is_booking_order"/>
-                <field name="team"/>
-                <field name="team_leader" readonly="1"/>
-                <field name="team_members" widget="many2many_tags" readonly="1"/>
-                <field name="booking_start"/>
-                <field name="booking_end"/>
-            </xpath>
-        </field>
-    </record>
-    <record id="action_booking_order" model="ir.actions.act_window">
-        <field name="name">Booking Order</field>
-        <field name="res_model">sale.order</field>
-        <field name="view_mode">tree,form</field>
-        <field name="context">{'default_is_booking_order': True}</field>
-        <field name="domain">[('is_booking_order', '=', True)]</field>
-    </record>
+    <record id="view_sale_order_booking_list" model="ir.ui.view">
+                <field name="name">sale.order.booking.list</field>
+                <field name="model">sale.order</field>
+                <field name="inherit_id" ref="sale.view_order_tree"/>
+                <field name="arch" type="xml">
+                    <field name="state" position="after">
+                        <field name="is_booking_order"/>
+                    </field>
+                </field>
+            </record>
+
+            <record id="view_sale_order_booking_form" model="ir.ui.view">
+                <field name="name">sale.order.booking.form</field>
+                <field name="model">sale.order</field>
+                <field name="inherit_id" ref="sale.view_order_form"/>
+                <field name="arch" type="xml">
+                    <header>
+                        <button name="action_check_work_order" string="Check" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ('draft', 'sent'))]}"/>
+                    </header>
+                    <xpath expr="//button[@name='action_view_invoice']" position="after">
+                        <button name="action_view_work_orders"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-pencil-square-o"
+                                attrs="{'invisible': [('booking_count', '=', 0)]}">
+                                <field name="booking_count" widget="statinfo" string="Booking"/>
+                            </button>
+                    </xpath>
+                    
+                    <field name="partner_id" position="after">
+                        <field name="is_booking_order"/>
+                        <field name="booking_start" required="1"/>
+                        <field name="booking_end" required="1"/>
+                        <field name="team" required="1"/>
+                        <field name="team_leader" required="1"/>
+                        <field name="team_members" widget="many2many_tags" required="1"/>
+
+                    </field>
+                
+                </field>
+            </record>
+
+            <record id="book_order_search_view" model="ir.ui.view">
+                <field name="name">sale.order.search</field>
+                <field name="model">sale.order</field>
+                <field name="arch" type="xml">
+                    <search string="Booking Order">
+                        <filter string="Booking Order" name="filter_to_book_order" domain="[('is_booking_order','=',1)]"/>
+                    </search>
+                </field>
+            </record>
+
+            <record id="sale_order_view_search_inherit_sale" model="ir.ui.view">
+                <field name="name">sale.order.search.inherit.sale</field>
+                <field name="model">sale.order</field>
+                <field name="mode">primary</field>
+                <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//filter[@name='my_sale_orders_filter']" position="after">
+                        <filter string="Booking Order" name="filter_to_book_order" domain="[('is_booking_order','=',1)]"/>
+                    </xpath>
+                </field>
+            </record>
+
+            <record id="action_booking_order" model="ir.actions.act_window">
+                <field name="name">Booking Order</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">sale.order</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+                <field name="search_view_id" ref="sale_order_view_search_inherit_sale"/>
+                <field name="context">{"search_default_filter_to_book_order":1, "default_is_booking_order": True}</field>
+                <!-- <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel'))]</field> -->
+                <field name="help" type="html">
+                    <p class="oe_view_nocontent_create">
+                    Create a Quotation, the first step of a new sale.
+                    </p>
+                    <p>
+                    Once the quotation is confirmed, it becomes a sales order.
+                    You'll be able to invoice it and collect payments.
+                    From the <i>Sales Orders</i> menu, you can track delivery
+                    orders or services.
+                    </p>
+                </field>
+            </record>
+
+            <!-- <record id="custom_view_sales_order_filter" model="ir.ui.view">
+                <field name="name">custom.sale.order.list.select</field>
+                <field name="model">sale.order</field>
+                <field name="arch" type="xml">
+                    <search string="Search Booking Order">
+                            <filter string="Booking Order" name="is_booking_order" domain="[('is_booking_order','=',True)]"/>
+                    </search>
+                </field>
+        </record> -->
 </odoo>
 

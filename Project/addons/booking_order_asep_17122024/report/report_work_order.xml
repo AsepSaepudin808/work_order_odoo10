@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <report
-        id="action_report_work_order"
-        model="work.order"
-        string="Work Order"
-        report_type="qweb-pdf"
-        name="booking_order_asep_17122024.report_work_order"
-        file="booking_order_asep_17122024.report_work_order"/>
+    <data>
+
+            <record id="paperformat_wo" model="report.paperformat">
+            <field name="name">Holidays Summary</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+            </record>
+
+        <report 
+            id="report_wok_order"
+            string="Work Order"
+            model="work.order" 
+            report_type="qweb-pdf"
+            file="booking_order_asep_17122024.report_workorder" 
+            name="booking_order_asep_17122024.report_workorder" 
+        />
+
+        <record id="report_wok_order" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="booking_order_asep_17122024.paperformat_wo"/>
+        </record>
+
+    </data>
 </odoo>

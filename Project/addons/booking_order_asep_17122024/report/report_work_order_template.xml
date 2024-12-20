@@ -1,19 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="work_order_template">
-        <t t-call="web.html_container">
-            <t t-foreach="doc_ids" t-as="doc_id">
-                <t t-set="doc" t-value="doc_model.browse(doc_id)"/>
-                <div class="page">
-                    <h2>Work Order: <span t-field="doc.name"/></h2>
-                    <p><strong>Team Name:</strong> <span t-field="doc.team.team_name"/></p>
-                    <p><strong>Customer:</strong> <span t-field="doc.booking_order_reference.partner_id.name"/></p>
-                    <p><strong>Booking Order Ref:</strong> <span t-field="doc.booking_order_reference.name"/></p>
-                    <p><strong>Date:</strong> <span t-field="doc.planned_start"/> - <span t-field="doc.planned_end"/></p>
-                    <p><strong>Notes:</strong></p>
-                    <p t-field="doc.notes"/>
-                    <br/>
-                    <p><strong>Signature:</strong> ____________________________</p>
-                </div>
+    <template id="report_workorder_document">
+       
+            <!-- <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" /> -->
+            <div class="page">
+            
+                <table style="border-collapse: collapse; width: 100%; height: 261px; border:1px solid black;" border="1">
+                    <tbody>
+                        <tr style="height: 18px; border:1px solid black">
+                            <td style="font-size:12pt; padding:5px; width: 25%; height: 18px;" colspan="4"> <span t-field="o.wo_number"/></td>
+                        </tr>
+                        <tr style="height: 18px; border:1px solid black">
+                            <td style="font-size:12pt; padding:5px; width: 25%; height: 18px; border:1px solid black;">Team Name</td>
+                            <td style="font-size:12pt; padding:5px; width: 25%; height: 18px; border:1px solid black;"> <span t-field="o.team"/></td>
+                            <td style="font-size:12pt; padding:5px; width: 25%; height: 18px; border:1px solid black;">Customer</td>
+                            <td style="font-size:12pt; padding:5px; width: 25%; height: 18px; border:1px solid black;"><span t-field="o.booking_order_reference.partner_id"/></td>
+                        </tr>
+                        <tr style="height: 18px; border:1px solid black">
+                            <td style="font-size:12pt; padding:5px; width: 25%; height: 18px; border:1px solid black;">Booking Order Ref</td>
+                            <td style="font-size:12pt; padding:5px; width: 25%; height: 18px; border:1px solid black;"><span t-field="o.booking_order_reference"/></td>
+                            <td style="font-size:12pt; padding:5px; width: 25%; height: 18px; border:1px solid black;">Date</td>
+                            <td style="font-size:12pt; padding:5px; width: 25%; height: 18px; border:1px solid black;"> <span t-field="o.date_start" t-options='{"widget": "date","format": "dd-MMMM-yyyy"}'/> - <span t-field="o.date_end" t-options='{"widget": "date","format": "dd-MMMM-yyyy"}'/></td>
+                        </tr>
+                        <tr style="height: 165px; border:1px solid black">
+                            <td style="font-size:12pt; padding:5px; width: 25%; height: 134px; vertical-align: top;" colspan="4">
+                                <p style="text-align: left; margin:0px;">NOTES :</p>
+                                <p style="text-align: left;"><span t-field="o.notes"/></p>
+                            </td>
+                        </tr>
+                        <tr style="height: 221px; border:1px solid black">
+                            <td style="font-size:12pt; padding:5px; width: 25%; height: 73px; vertical-align: top;" colspan="4">Signature :</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+      
+    </template>
+
+
+    <template id="report_workorder">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="booking_order_asep_17122024.report_workorder_document" />
             </t>
         </t>
     </template>

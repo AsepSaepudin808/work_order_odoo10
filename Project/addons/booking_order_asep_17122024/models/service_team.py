@@ -9,8 +9,8 @@ class ServiceTeam(models.Model):
     team_members = fields.Many2many('res.users', string='Team Members')
 
     def name_get(self):
-        result = []
-        for record in self:
-            name = record.team_name
-            result.append((record.id, name))
-        return result
+       result = []
+       for record in self:
+           name = record.team_name or "Unnamed Team"
+           result.append((record.id, name))
+       return result

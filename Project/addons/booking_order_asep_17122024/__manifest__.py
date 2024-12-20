@@ -12,7 +12,7 @@
     'author': 'Asep Saepudin',
     'website': 'https://www.example.com',
     'depends': [
-        'sale',
+        'sale','base'
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -22,6 +22,7 @@
         'views/service_team_views.xml',
         'views/sale_order_views.xml',
         'views/work_order_views.xml',
+        'views/work_order_cencel.xml',
         'views/menuitem.xml',
     ],
     'installable': True,

@@ -1,37 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="view_work_order_list" model="ir.ui.view">
+        <field name="name">work.order.list</field>
+        <field name="model">work.order</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="wo_number"/>
+                <field name="team"/>
+                <field name="team_leader"/>
+                <field name="planned_start"/>
+                <field name="planned_end"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_work_order_kanban" model="ir.ui.view">
+        <field name="name">work.order.kanban</field>
+        <field name="model">work.order</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="wo_number"/>
+                <field name="team"/>
+                <field name="team_leader"/>
+                <field name="planned_start"/>
+                <field name="planned_end"/>
+                <field name="state"/>
+            </kanban>
+        </field>
+    </record>
+
     <record id="view_work_order_form" model="ir.ui.view">
         <field name="name">work.order.form</field>
         <field name="model">work.order</field>
         <field name="arch" type="xml">
-            <form>
-                <header>
-                    <button name="action_start_work" string="Start Work" type="object" states="pending" class="btn-primary"/>
-                    <button name="action_end_work" string="End Work" type="object" states="in_progress" class="btn-primary"/>
-                    <button name="action_reset" string="Reset" type="object" states="in_progress" class="btn-secondary"/>
-                    <button name="action_cancel" string="Cancel" type="object" class="btn-danger"/>
-                    <button name="%(action_report_work_order)d" string="Print" type="action" class="btn-primary"/>
-                </header>
-                <sheet>
-                    <group>
-                        <field name="name"/>
-                        <field name="team"/>
-                        <field name="team_leader"/>
-                        <field name="team_members" widget="many2many_tags"/>
-                        <field name="planned_start"/>
-                        <field name="planned_end"/>
-                        <field name="state"/>
-                        <field name="notes"/>
-                    </group>
-                </sheet>
+            <form > 
+            <header>
+                <button name="action_start_work" string="Start Work" type="object" states="pending" class="oe_highlight"/>
+                <button name="action_end_work" string="End Work" type="object" states="in_progress" class="oe_highlight"/>
+                <button name="action_reset" string="Reset" type="object" states="in_progress" class="oe_highlight"/>
+                <button name="action_cancel" string="Cancel" type="object" class="oe_highlight"/>
+                <field name="state" widget="statusbar" statusbar_visible="pending,in_progress,done,cancelled"/>
+            </header>
+                <group>
+                    <field name="wo_number"/>
+                    <field name="booking_order_reference"/>
+                    <field name="team"/>
+                    <field name="team_leader"/>
+                    <field name="team_members" widget="many2many_tags"/>
+                    <field name="planned_start"/>
+                    <field name="planned_end"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="state"/>
+                    <field name="notes"/>
+                </group>
             </form>
         </field>
     </record>
+
+    <record id="view_work_order_calendar" model="ir.ui.view">
+        <field name="name">work.order.calendar</field>
+        <field name="model">work.order</field>
+        <field name="arch" type="xml">
+            <calendar string="Work Order" color="state" date_start="planned_start">
+                <field name="wo_number"/>
+                <field name="planned_start"/>
+                <field name="planned_end"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+
     <record id="action_work_order" model="ir.actions.act_window">
         <field name="name">Work Order</field>
         <field name="res_model">work.order</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban,calendar</field>
+        <field name="view_id" ref="view_work_order_list"/>
     </record>
 </odoo>
+
+
+
+
 
 
